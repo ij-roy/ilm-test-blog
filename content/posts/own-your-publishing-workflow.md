@@ -2,11 +2,11 @@
 title: "Own your publishing workflow"
 description: "A practical note about writing, saving, and publishing with a Git-native CMS."
 slug: "own-your-publishing-workflow"
-updatedAt: "2026-07-04T20:55:17.238Z"
+updatedAt: "2026-07-04T21:13:08.189Z"
 tags: ["cms", "github", "publishing"]
 categories: ["engineering"]
-author: "IJ Roy"
-publishedAt: "2026-07-04T20:55:17.238Z"
+author: "Ilm Author"
+publishedAt: "2026-07-04T21:13:08.189Z"
 ---
 
 # Own your publishing workflow
