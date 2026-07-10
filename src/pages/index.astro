@@ -1,0 +1,25 @@
+---
+import { getPublishedPosts } from "../template/posts";
+
+const posts = await getPublishedPosts();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ilm Blog</title>
+    <meta name="description" content="A user-owned Ilm blog." />
+  </head>
+  <body>
+    <main>
+      <h1>Ilm Blog</h1>
+      <p>Static output generated from your GitHub-backed blog content.</p>
+      <p><a href="/search/">Search Blog</a></p>
+      <ul>
+        {posts.map((post) => <li><a href={`/blogs/${post.slug}/`}>{post.title}</a></li>)}
+      </ul>
+    </main>
+  </body>
+</html>

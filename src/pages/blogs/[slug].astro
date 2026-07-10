@@ -1,0 +1,47 @@
+---
+import { getPublishedPosts, getSeoConfigPath } from "../../template/posts";
+import { marked } from "marked";
+import { readFile } from "node:fs/promises";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+let canonicalBaseUrl = "https://example.com";
+try {
+  const content = await readFile(getSeoConfigPath(), "utf-8");
+  const canonicalMatch = content.match(/canonicalBaseUrl:\s*["']([^"']+)["']/);
+  if (canonicalMatch && canonicalMatch[1]) canonicalBaseUrl = canonicalMatch[1];
+} catch {
+  // fallback
+}
+
+const canonicalUrl = `${canonicalBaseUrl.replace(/\/$/, "")}/blogs/${post.slug}/`;
+const htmlBody = marked.parse(post.body);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{post.title} | Ilm Blog</title>
+    <meta name="description" content={post.description} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1>{post.title}</h1>
+        <p>{post.description}</p>
+        <div set:html={htmlBody} />
+      </article>
+    </main>
+  </body>
+</html>
